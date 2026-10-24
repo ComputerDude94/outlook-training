@@ -1,5 +1,5 @@
 /* ==========================================================================
-   data.js — 100% fictional training data (Harborview Partners, *.example domains)
+   data.js — 100% fictional training data (AmeriHealth Caritas internal addresses, *.example external domains)
    OT.data.create() returns a fresh, independent mailbox every time a lesson
    starts, so exercises are deterministic and learners can always retry.
    ========================================================================== */
@@ -13,20 +13,20 @@
   function at(dayOffset, h, m) { return new Date(2026, 9, 26 + dayOffset, h, m || 0).getTime(); }
 
   var CONTACTS = {
-    jordan: { id: 'jordan', name: 'Jordan Rivera', email: 'jordan.rivera@harborview.example', title: 'Operations Analyst', dept: 'Operations', phone: '+1 555 0100' },
-    priya: { id: 'priya', name: 'Priya Nair', email: 'priya.nair@harborview.example', title: 'Finance Director', dept: 'Finance', phone: '+1 555 0111' },
-    marcus: { id: 'marcus', name: 'Marcus Chen', email: 'marcus.chen@harborview.example', title: 'Operations Manager', dept: 'Operations', phone: '+1 555 0112' },
-    elena: { id: 'elena', name: 'Elena Petrova', email: 'elena.petrova@harborview.example', title: 'HR Business Partner', dept: 'People', phone: '+1 555 0113' },
-    sam: { id: 'sam', name: 'Sam Okafor', email: 'sam.okafor@harborview.example', title: 'IT Service Desk Lead', dept: 'IT', phone: '+1 555 0114' },
-    dana: { id: 'dana', name: 'Dana Whitfield', email: 'dana.whitfield@harborview.example', title: 'Project Manager, Atlas Rollout', dept: 'PMO', phone: '+1 555 0115' },
-    luis: { id: 'luis', name: 'Luis Herrera', email: 'luis.herrera@harborview.example', title: 'Sales Lead', dept: 'Sales', phone: '+1 555 0116' },
-    aisha: { id: 'aisha', name: 'Aisha Rahman', email: 'aisha.rahman@harborview.example', title: 'Legal Counsel', dept: 'Legal', phone: '+1 555 0117' },
-    tom: { id: 'tom', name: 'Tom Becker', email: 'tom.becker@harborview.example', title: 'Facilities Coordinator', dept: 'Facilities', phone: '+1 555 0118' },
-    meilin: { id: 'meilin', name: 'Mei Lin Zhao', email: 'meilin.zhao@harborview.example', title: 'Marketing Manager', dept: 'Marketing', phone: '+1 555 0119' },
+    jordan: { id: 'jordan', name: 'Jordan Rivera', email: 'jordan.rivera@amerihealthcaritas.com', title: 'Operations Analyst', dept: 'Operations', phone: '+1 555 0100' },
+    priya: { id: 'priya', name: 'Priya Nair', email: 'priya.nair@amerihealthcaritas.com', title: 'Finance Director', dept: 'Finance', phone: '+1 555 0111' },
+    marcus: { id: 'marcus', name: 'Marcus Chen', email: 'marcus.chen@amerihealthcaritas.com', title: 'Operations Manager', dept: 'Operations', phone: '+1 555 0112' },
+    elena: { id: 'elena', name: 'Elena Petrova', email: 'elena.petrova@amerihealthcaritas.com', title: 'HR Business Partner', dept: 'People', phone: '+1 555 0113' },
+    sam: { id: 'sam', name: 'Sam Okafor', email: 'sam.okafor@amerihealthcaritas.com', title: 'IT Service Desk Lead', dept: 'IT', phone: '+1 555 0114' },
+    dana: { id: 'dana', name: 'Dana Whitfield', email: 'dana.whitfield@amerihealthcaritas.com', title: 'Project Manager, Atlas Rollout', dept: 'PMO', phone: '+1 555 0115' },
+    luis: { id: 'luis', name: 'Luis Herrera', email: 'luis.herrera@amerihealthcaritas.com', title: 'Sales Lead', dept: 'Sales', phone: '+1 555 0116' },
+    aisha: { id: 'aisha', name: 'Aisha Rahman', email: 'aisha.rahman@amerihealthcaritas.com', title: 'Legal Counsel', dept: 'Legal', phone: '+1 555 0117' },
+    tom: { id: 'tom', name: 'Tom Becker', email: 'tom.becker@amerihealthcaritas.com', title: 'Facilities Coordinator', dept: 'Facilities', phone: '+1 555 0118' },
+    meilin: { id: 'meilin', name: 'Mei Lin Zhao', email: 'meilin.zhao@amerihealthcaritas.com', title: 'Marketing Manager', dept: 'Marketing', phone: '+1 555 0119' },
     carla: { id: 'carla', name: 'Carla Mendes', email: 'carla.mendes@riversideprint.example', title: 'Accounts, Riverside Print Co.', dept: 'External', phone: '+1 555 0150' },
     digest: { id: 'digest', name: 'Logistics Weekly', email: 'digest@logisticsweekly.example', title: 'Newsletter', dept: 'External', phone: '' },
     prize: { id: 'prize', name: 'Prize Center', email: 'claim@win-now-prizes.example', title: 'Unknown sender', dept: 'External', phone: '' },
-    all: { id: 'all', name: 'All Staff', email: 'allstaff@harborview.example', title: 'Distribution list', dept: 'Company-wide', phone: '' }
+    all: { id: 'all', name: 'All Staff', email: 'allstaff@amerihealthcaritas.com', title: 'Distribution list', dept: 'Company-wide', phone: '' }
   };
 
   function att(id, name, kb, preview) { return { id: id, name: name, size: kb, ext: name.split('.').pop().toLowerCase(), preview: preview }; }
