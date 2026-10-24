@@ -51,6 +51,8 @@ button { cursor: pointer; }
 .main.wide { max-width: 1480px; }
 .foot { max-width: 1480px; margin: 0 auto; padding: 14px 20px 30px; color: var(--muted); font-size: .85rem; display: flex; gap: 14px; justify-content: space-between; flex-wrap: wrap; align-items: center; }
 .banner { padding: 8px 20px; text-align: center; }
+.banner.phi { background: var(--info-bg); color: #0a3d6e; font-size: .88rem; }
+.who { display: block; font-size: .9rem; } .who input { display: block; margin-top: 6px; padding: 8px 10px; width: min(360px, 100%); font: inherit; border: 1px solid #8a8886; border-radius: 4px; } .who-print { display: none; }
 .banner.warn { background: var(--warn-bg); color: var(--warn); }
 .card { background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); padding: 18px 20px; box-shadow: var(--shadow); }
 .eyebrow { text-transform: uppercase; letter-spacing: .06em; font-size: .75rem; font-weight: 600; color: var(--brand-d); margin: 0 0 4px; }
@@ -527,6 +529,7 @@ button { cursor: pointer; }
   .sim-root, .sim-root.tall { height: 640px; } .mod-quiz { flex-wrap: wrap; } .ll-go { display: none; }
 }
 @media print {
+  .who-print { display: block; }
   .top, .foot, .no-print, .skip { display: none !important; } body { background: #fff; } .card { box-shadow: none; }
 }
 [tabindex="-1"]:focus { outline: none; }
@@ -4606,9 +4609,10 @@ button { cursor: pointer; }
       '<header class="top"><div class="top-in"><a class="brand" href="#/" aria-label="Outlook training home"><span class="brand-mark" aria-hidden="true">' + I('mail', 18) + '</span><span><b>Classic vs New Outlook</b><small>Interactive training</small></span></a>' +
       '<nav class="topnav" aria-label="Main">' + nav.map(function (n) { return '<a href="' + n[1] + '"' + (cur === n[0] ? ' aria-current="page"' : '') + '>' + n[2] + '</a>'; }).join('') + '</nav>' +
       '<div class="top-prog" title="' + c.done + ' of ' + c.total + ' complete"><span class="sr">Overall progress: </span><div class="pbar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="' + c.pct + '" aria-label="Overall progress"><span style="width:' + c.pct + '%"></span></div><b>' + c.pct + '%</b></div></div></header>' +
+      '<div class="banner phi no-print" role="note"><b>Practice only.</b> Do not type real member information, PHI, passwords or other sensitive data into this training. Everything here is fictional.</div>' +
       (OT.storage.persistent ? '' : '<div class="banner warn" role="status">Your browser is blocking local storage, so progress is kept only until you close this tab.</div>') +
       '<main id="main" tabindex="-1" class="main' + (opts.wide ? ' wide' : '') + '">' + inner + '</main>' +
-      '<footer class="foot"><span>All people, messages and files in this training are fictional. Nothing is sent or saved to your computer.</span><button type="button" class="btn link" data-go="reset">Reset my progress</button></footer>' +
+      '<footer class="foot"><span>All people, messages and files in this training are fictional. Nothing is sent anywhere; progress stays in this browser only.</span><button type="button" class="btn link" data-go="reset">Reset my progress</button></footer>' +
       '<div id="modal-host"></div>';
   }
 
@@ -4831,6 +4835,7 @@ button { cursor: pointer; }
     var h = '<h1>My results</h1><p class="lead narrow-text">Your progress is saved in this browser. ' + (OT.storage.persistent ? '' : '(Storage is blocked here, so it will be lost when you close the tab.) ') + 'Print this page if you need a record.</p>';
     h += '<section class="card"><h2>Overall</h2><div class="sum-grid"><div class="ring" style="--p:' + c.pct + '"><b>' + c.pct + '%</b><small>complete</small></div><ul class="stats"><li><b>' + c.lessons + ' of ' + OT.lessons.length + '</b> lessons completed</li><li><b>' + c.quizzes + ' of ' + OT.modules.length + '</b> module quizzes passed</li><li><b>' + (f ? f.best + '/' + f.total : 'Not taken') + '</b> best final assessment score' + (f ? ' (' + f.attempts + (f.attempts === 1 ? ' attempt' : ' attempts') + ')' : '') + '</li></ul></div>' +
       (f && f.passed && c.lessons === OT.lessons.length ? '<div class="fb ok">' + I('trophy', 16) + '<div><b>Training complete.</b> You finished every lesson and passed the final assessment.</div></div>' : '<div class="fb info">' + I('target', 16) + '<div>To complete the training: finish all lessons, pass each module quiz, and pass the final assessment.</div></div>') + '</section>';
+    h += '<section class="card"><h2>Learner</h2><label class="who no-print">Your name (optional, shown on the printed page and in copied results) <input type="text" id="who-name" autocomplete="name" maxlength="80"></label><p class="who-print">Learner: <b id="who-print">__________</b> &nbsp; Date: <b>' + new Date().toLocaleDateString() + '</b></p></section>';
     h += '<section class="card"><h2>Lessons and quizzes</h2><table class="tbl"><thead><tr><th>Module</th><th>Lessons</th><th>Quiz</th></tr></thead><tbody>' + OT.modules.map(function (m) {
       var ls = lessonsOf(m.id), done = ls.filter(function (l) { return Progress.lessonDone(l.id); }).length, q = d.quizzes[m.id];
       return '<tr><th scope="row">' + esc(m.title) + '</th><td>' + done + ' of ' + ls.length + (done === ls.length ? ' ' + chip('ok', 'Done') : '') + '</td><td>' + (q ? q.best + '/' + q.total + ' best' + (q.passed ? ' ' + chip('ok', 'Passed') : ' ' + chip('warn', 'Retry')) : chip('todo', 'Not taken')) + '</td></tr>';
@@ -4840,7 +4845,7 @@ button { cursor: pointer; }
       h += '<section class="card"><h2>Last final assessment: ' + f.last + '/' + f.total + '</h2><table class="tbl"><thead><tr><th>Module</th><th>Correct</th></tr></thead><tbody>' + OT.modules.map(function (m) { var x = by[m.id] || { right: 0, total: 0 }; return '<tr><th scope="row">' + esc(m.title) + '</th><td>' + (x.total ? x.right + ' of ' + x.total : '—') + '</td></tr>'; }).join('') + '</tbody></table>' +
         (weak.length ? '<p><b>Worth another look:</b> ' + weak.map(function (m) { return '<a href="#/lesson/' + lessonsOf(m.id)[0].id + '">' + esc(m.title) + '</a>'; }).join(', ') + '</p>' : '') + '</section>';
     }
-    h += '<div class="quiz-actions no-print"><button type="button" class="btn" onclick="window.print()">' + I('file', 14) + ' Print this page</button><a class="btn" href="#/final">Retake the final assessment</a><button type="button" class="btn" data-go="reset">Reset my progress</button></div>';
+    h += '<div class="quiz-actions no-print"><button type="button" class="btn" onclick="window.print()">' + I('file', 14) + ' Print this page</button><button type="button" class="btn" data-go="copy">Copy my results</button><button type="button" class="btn" data-go="download">Download my results</button><a class="btn" href="#/final">Retake the final assessment</a><button type="button" class="btn" data-go="reset">Reset my progress</button></div>';
     mount(h);
   }
 
@@ -4881,13 +4886,43 @@ button { cursor: pointer; }
     });
   }
 
+  /* ------------------------------------------------------ results export */
+  function resultsText() {
+    var c = Progress.counts(), d = Progress.data, f = d.final, nm = document.getElementById('who-name'), name = nm && nm.value.trim();
+    var L = ['Classic vs New Outlook training: results', 'Learner: ' + (name || '(not entered)'), 'Date: ' + new Date().toLocaleDateString(), '',
+      'Overall: ' + c.pct + '% complete', 'Lessons completed: ' + c.lessons + ' of ' + OT.lessons.length,
+      'Module quizzes passed: ' + c.quizzes + ' of ' + OT.modules.length,
+      'Final assessment: ' + (f ? 'best ' + f.best + '/' + f.total + (f.passed ? ' (passed)' : ' (not yet passed)') + ', ' + f.attempts + ' attempt(s)' : 'not taken'), ''];
+    OT.modules.forEach(function (m) {
+      var ls = lessonsOf(m.id), done = ls.filter(function (l) { return Progress.lessonDone(l.id); }).length, q = d.quizzes[m.id];
+      L.push(m.title + ': lessons ' + done + '/' + ls.length + '; quiz ' + (q ? q.best + '/' + q.total + (q.passed ? ' passed' : ' not passed') : 'not taken'));
+    });
+    return L.join('\n');
+  }
+  function downloadResults() {
+    try {
+      var a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([resultsText()], { type: 'text/plain' }));
+      a.download = 'outlook-training-results.txt'; document.body.appendChild(a); a.click(); a.remove();
+    } catch (e) { window.prompt('Copy your results:', resultsText()); }
+  }
+  function copyResults(btn) {
+    var t = resultsText(), ok = function () { var o = btn.textContent; btn.textContent = 'Copied'; setTimeout(function () { btn.textContent = o; }, 1500); };
+    if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(t).then(ok, downloadResults); else downloadResults();
+  }
+
   /* ---------------------------------------------------------------- init */
   function init() {
     app.root = document.getElementById('app');
     Progress.load();
     app.root.addEventListener('click', function (e) {
       var g = e.target.closest('[data-go]'); if (!g) return;
-      if (g.getAttribute('data-go') === 'reset') openReset();
+      var act = g.getAttribute('data-go');
+      if (act === 'reset') openReset();
+      else if (act === 'copy') copyResults(g);
+      else if (act === 'download') downloadResults();
+    });
+    app.root.addEventListener('input', function (e) {
+      if (e.target.id === 'who-name') { var w = document.getElementById('who-print'); if (w) w.textContent = e.target.value.trim() || '__________'; }
     });
     window.addEventListener('hashchange', route);
     window.addEventListener('storage', function (e) { if (e.key === KEY) { Progress.load(); } });

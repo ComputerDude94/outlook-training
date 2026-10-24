@@ -4,7 +4,7 @@
   "description": "Headless-browser tests for the Outlook training app",
   "main": "index.js",
   "scripts": {
-    "test": "node e2e.js && node behaviors.js && node mobile.js all",
+    "test": "node e2e.js && node behaviors.js && node mobile.js all && node results.js",
     "test:built": "BUILT=1 node e2e.js && BUILT=1 node behaviors.js"
   },
   "keywords": [],

@@ -43,6 +43,8 @@ button { cursor: pointer; }
 .main.wide { max-width: 1480px; }
 .foot { max-width: 1480px; margin: 0 auto; padding: 14px 20px 30px; color: var(--muted); font-size: .85rem; display: flex; gap: 14px; justify-content: space-between; flex-wrap: wrap; align-items: center; }
 .banner { padding: 8px 20px; text-align: center; }
+.banner.phi { background: var(--info-bg); color: #0a3d6e; font-size: .88rem; }
+.who { display: block; font-size: .9rem; } .who input { display: block; margin-top: 6px; padding: 8px 10px; width: min(360px, 100%); font: inherit; border: 1px solid #8a8886; border-radius: 4px; } .who-print { display: none; }
 .banner.warn { background: var(--warn-bg); color: var(--warn); }
 .card { background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); padding: 18px 20px; box-shadow: var(--shadow); }
 .eyebrow { text-transform: uppercase; letter-spacing: .06em; font-size: .75rem; font-weight: 600; color: var(--brand-d); margin: 0 0 4px; }
@@ -519,6 +521,7 @@ button { cursor: pointer; }
   .sim-root, .sim-root.tall { height: 640px; } .mod-quiz { flex-wrap: wrap; } .ll-go { display: none; }
 }
 @media print {
+  .who-print { display: block; }
   .top, .foot, .no-print, .skip { display: none !important; } body { background: #fff; } .card { box-shadow: none; }
 }
 [tabindex="-1"]:focus { outline: none; }

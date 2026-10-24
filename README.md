@@ -20,6 +20,14 @@ node tools/build.js      # writes dist/outlook-training.html
 - **SharePoint:** upload `dist/outlook-training.html` to a document library. SharePoint often forces `.html` files to download instead of rendering them. If that happens, either host the file on an internal web server and link to it from SharePoint, or embed it from the hosting location with the Embed web part. Check your tenant's policy on custom script.
 - **LMS:** it is not SCORM-packaged. Link to it from your LMS. Progress is stored in each learner's own browser, so it is not reported centrally.
 
+## Tests
+
+```
+cd tests && npm install && npm test
+```
+
+The tests drive a headless browser. They use Chrome, Edge or Chromium if one is installed (set `CHROME_PATH` to point at a specific one), and fall back to a bundled Linux build.
+
 ## What it covers
 
 | Module | Lessons |
@@ -30,7 +38,7 @@ node tools/build.js      # writes dist/outlook-training.html
 | 4 Calendar | Responding to invitations; scheduling a Teams meeting |
 | 5 Settings and customizing | Schedule send and undo send; settings; "Where did it go?" |
 
-Each lesson has one task per step, a highlighted control with instructions, validation of the action actually performed in the simulator, hints and feedback on mistakes, and a "what changed and where is it now" summary. Also included: a Practice mailbox (free play), a Reference page (availability matrix and "where did it go" map, with a filter), a results summary (printable) and a reset button.
+Each lesson has one task per step, a highlighted control with instructions, validation of the action actually performed in the simulator, hints and feedback on mistakes, and a "what changed and where is it now" summary. Also included: a Practice mailbox (free play), a Reference page (availability matrix and "where did it go" map, with a filter), a results summary (printable, with copy/download of the results) and a reset button.
 
 Progress (completed lessons, quiz scores, final score) is saved in the browser's `localStorage` under `outlook-training.progress.v1`. Pass mark is 80%. If a browser blocks storage, the app still works and shows a notice that progress lasts only for the tab. A reload in the middle of a lesson restarts that lesson (completed lessons stay completed).
 
