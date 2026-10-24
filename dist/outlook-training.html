@@ -78,7 +78,7 @@ button { cursor: pointer; }
 .hero .btn:not(.primary) { background: transparent; color: #fff; border-color: #fff; }
 .hero .btn:not(.primary):hover { background: rgba(255,255,255,.14); }
 .hero-prog { display: flex; align-items: center; gap: 18px; color: var(--ink); }
-.ring { --p: 0; width: 104px; height: 104px; border-radius: 50%; background: conic-gradient(var(--brand) calc(var(--p) * 1%), #e1dfdd 0); display: grid; place-items: center; position: relative; flex: none; text-align: center; }
+.ring { --p: 0; width: 104px; height: 104px; border-radius: 50%; background: conic-gradient(var(--brand) calc(var(--p) * 1%), #e1dfdd 0); display: grid; place-items: center; align-content: center; row-gap: 2px; position: relative; flex: none; text-align: center; }
 .ring::before { content: ""; position: absolute; inset: 10px; background: #fff; border-radius: 50%; }
 .ring b, .ring small { position: relative; display: block; line-height: 1.1; } .ring b { font-size: 1.35rem; } .ring small { color: var(--muted); font-size: .72rem; }
 .ring.good { background: conic-gradient(var(--ok) calc(var(--p) * 1%), #e1dfdd 0); } .ring.warn { background: conic-gradient(#c19c00 calc(var(--p) * 1%), #e1dfdd 0); }
